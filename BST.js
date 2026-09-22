@@ -46,4 +46,36 @@ class Tree {
   insert(value) {
     this.root = this.#insert(value);
   }
+
+  deleteItem(value, node = this.root) {
+    if (node === null) {
+      return null;
+    }
+    if (value > node.data) {
+      node.right = this.deleteItem(value, node.right);
+      return node;
+    }
+    if (value < node.data) {
+      node.right = this.deleteItem(value, node.left);
+      return node;
+    }
+    if (node.left === null && node.right === null) {
+      return null;
+    }
+    if (node.left === null) {
+      return node.right;
+    }
+    if (node.right === null) {
+      return node.left;
+    }
+
+    let successor = node.right;
+    while (successor.left !== null) {
+      successor = successor.left;
+    }
+
+    node.data = successor.data;
+    node.right = this.deleteItem(successor.data, node.right);
+    return node;
+  }
 }
