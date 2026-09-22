@@ -23,6 +23,16 @@ class Tree {
     return root;
   }
 
+  includes(value, node = this.root) {
+    if (node === null) {
+      return false;
+    } else if (value === node.data) {
+      return true;
+    } else if (value > node.data) {
+      return this.includes(value, node.right);
+    } else return this.includes(value, node.left);
+  }
+
   #insert(value, node = this.root) {
     if (node === null) {
       return new Node(value);
